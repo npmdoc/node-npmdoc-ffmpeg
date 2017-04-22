@@ -1,0 +1,645 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/damianociarla/node-ffmpeg#readme"
+
+    >ffmpeg (v0.0.4)</a>
+</h1>
+<h4>Utility for managing video streams using ffmpeg</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ffmpeg">module ffmpeg</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.ffmpeg">
+            function <span class="apidocSignatureSpan"></span>ffmpeg
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ffmpeg.</span>errors</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ffmpeg.</span>utils</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ffmpeg.errors">module ffmpeg.errors</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.errors.renderError">
+            function <span class="apidocSignatureSpan">ffmpeg.errors.</span>renderError
+            <span class="apidocSignatureSpan">(codeName)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ffmpeg.errors.</span>list</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ffmpeg.utils">module ffmpeg.utils</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.utils.durationToSeconds">
+            function <span class="apidocSignatureSpan">ffmpeg.utils.</span>durationToSeconds
+            <span class="apidocSignatureSpan">(duration)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.utils.exec">
+            function <span class="apidocSignatureSpan">ffmpeg.utils.</span>exec
+            <span class="apidocSignatureSpan">(commands, settings, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.utils.gcd">
+            function <span class="apidocSignatureSpan">ffmpeg.utils.</span>gcd
+            <span class="apidocSignatureSpan">(a, b)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.utils.in_array">
+            function <span class="apidocSignatureSpan">ffmpeg.utils.</span>in_array
+            <span class="apidocSignatureSpan">(value, array)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.utils.isEmptyObj">
+            function <span class="apidocSignatureSpan">ffmpeg.utils.</span>isEmptyObj
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.utils.mergeObject">
+            function <span class="apidocSignatureSpan">ffmpeg.utils.</span>mergeObject
+            <span class="apidocSignatureSpan">(obj, obj1)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ffmpeg.utils.mkdir">
+            function <span class="apidocSignatureSpan">ffmpeg.utils.</span>mkdir
+            <span class="apidocSignatureSpan">(dirpath, mode, callback, position)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ffmpeg" id="apidoc.module.ffmpeg">module ffmpeg</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.ffmpeg" id="apidoc.element.ffmpeg.ffmpeg">
+        function <span class="apidocSignatureSpan"></span>ffmpeg
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ffmpeg = function () {
+
+	<span class="apidocCodeCommentSpan">/**
+	 * Retrieve the list of the codec supported by the ffmpeg software
+	 */
+</span>	var _ffmpegInfoConfiguration = function (settings) {
+		// New &#x27;promise&#x27; instance
+		var deferred = when.defer();
+		// Instance the new arrays for the format
+		var format = { modules : new Array(), encode : new Array(), decode : new Array() };
+		// Make the call to retrieve information about the ffmpeg
+		utils.exec([&#x27;ffmpeg&#x27;,&#x27;-formats&#x27;,&#x27;2&#x3e;&#x26;1&#x27;], settings, function (error, stdout, stderr) {
+			// Get the list of modules
+			var configuration = /configuration:(.*)/.exec(stdout);
+			// Check if exists the configuration
+			if (configuration) {
+				// Get the list of modules
+				var modules = configuration[1].match(/--enable-([a-zA-Z0-9\-]+)/g);
+				// Scan all modules
+				for (var indexModule in modules) {
+					// Add module to the list
+					format.modules.push(/--enable-([a-zA-Z0-9\-]+)/.exec(modules[indexModule])[1]);
+				}
+			}
+			// Get the codec list
+			var codecList = stdout.match(/ (DE|D|E) (.*) {1,} (.*)/g);
+			// Scan all codec
+			for (var i in codecList) {
+				// Get the match value
+				var match = / (DE|D|E) (.*) {1,} (.*)/.exec(codecList[i]);
+				// Check if match is valid
+				if (match) {
+					// Get the value from the match
+					var scope = match[1].replace(/\s/g,&#x27;&#x27;)
+					  , extension = match[2].replace(/\s/g,&#x27;&#x27;);
+					// Check which scope is best suited
+					if (scope == &#x27;D&#x27; || scope == &#x27;DE&#x27;)
+						format.decode.push(extension);
+					if (scope == &#x27;E&#x27; || scope == &#x27;DE&#x27;)
+						format.encode.push(extension);
+				}
+			}
+			// Returns the list of supported formats
+			deferred.resolve(format);
+		});
+		// Return &#x27;promise&#x27; instance
+		return deferred.promise;
+	}
+	
+	/**
+	 * Get the video info
+	 */
+	var _videoInfo = function (fileInput, settings) {
+		// New &#x27;promise&#x27; instance
+		var deferred = when.defer();
+		// Make the call to retrieve information about the ffmpeg
+		utils.exec([&#x27;ffmpeg&#x27;,&#x27;-i&#x27;,fileInput,&#x27;2&#x3e;&#x26;1&#x27;], settings, function (error, stdout, stderr) {
+			// Perse output for retrieve the file info
+			var filename		= /from \&#x27;(.*)\&#x27;/.exec(stdout) || []
+			  , title			= /(INAM|title)\s+:\s(.+)/.exec(stdout) || []
+			  , artist			= /artist\s+:\s(.+)/.exec(stdout) || []
+			  , album			= /album\s+:\s(.+)/.exec(stdout) || []
+			  , track			= /track\s+:\s(.+)/.exec(stdout) || []
+			  , date			= /date\s+:\s(.+)/.exec(stdout) || []
+			  , is_synched		= (/start: 0.000000/.exec(stdout) !== null)
+			  , duration		= /Duration: (([0-9]+):([0-9]{2}):([0-9]{2}).([0-9]+))/.exec(stdout) || []
+			
+			  , container		= /Input #0, ([a-zA-Z0-9]+),/.exec(stdout) || []
+			  , video_bitrate	= /bitrate: ([0-9]+) kb\/s/.exec(stdout) || []
+			  , video_stream	= /Stream #([0-9\.]+)([a-z0-9\(\)\[\]]*)[:] Video/.exec(stdout) || []
+			  , video_codec		= /Video: ([\w]+)/.exec(stdout) || []
+			  , resolution		= /(([0-9]{2,5})x([0-9]{2,5}))/.exec(stdout) || []
+			  , pixel			= /[SP]AR ([0-9\:]+)/.exec(stdout) || []
+			  , aspect			= /DAR ([0-9\:]+)/.exec(stdout) || []
+			  , fps				= /([0-9\.]+) (fps|tb\(r\))/.exec(stdout) || []
+			
+			  , audio_stream	= /Stream #([0-9\.]+)([a-z0-9\(\)\[\]]*)[:] Audio/.exec(stdout) || []
+			  , audio_codec		= /Audio: ([\w]+)/.exec(stdout) || []
+			  , sample_rate		= /([0-9]+) Hz/i.exec(stdout) || []
+			  , channels		= /Audio:.* (stereo|mono)/.exec(stdout) || []
+			  , audio_bitrate	= /Audio:.* ([0-9]+) kb\/s/.exec(stdout) || []
+			  , rotate			= /rotate[\s]+:[\s]([\d]{2,3})/.exec(stdout) || [];
+			// Build return object
+			var ret = {
+				filename		: filename[1] || &#x27;&#x27;
+			  , title			: title[2] || &#x27;&#x27;
+			  , artist			: artist[1] || &#x27;&#x27;
+			  , album			: album[1] || &#x27;&#x27;
+			  , track			: track[1] || &#x27;&#x27;
+			  , date			: date[1] || &#x27;&#x27;
+			  , synched			: is_synched
+			  , duration		: {
+					raw		: duration[1] || &#x27;&#x27;
+				  , seconds	: duration[1] ? utils.durationToSeconds(duration[1]) : 0
+				}
+			  , video			: {
+					container			: container[1] || &#x27;&#x27;
+				  , bitrate				: (video_bitrate.length &#x3e; 1) ? parseInt(video_bitrate[1], 10) : 0
+				  , stream				: video_stream.length &#x3e; 1 ? parseFloat(video_str ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ffmpeg.errors" id="apidoc.module.ffmpeg.errors">module ffmpeg.errors</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.errors.renderError" id="apidoc.element.ffmpeg.errors.renderError">
+        function <span class="apidocSignatureSpan">ffmpeg.errors.</span>renderError
+        <span class="apidocSignatureSpan">(codeName)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">renderError = function (codeName) {
+	// Get the error object by the codename
+	var params = [list[codeName].msg];
+	// Get the possible arguments
+	if (arguments.length &#x3e; 1)
+		params = params.concat(Array.prototype.slice.call(arguments, 1));
+	// Call the function for replace the letter &#x27;%s&#x27; with the found arguments
+	return { &#x27;code&#x27; : list[codeName].code, &#x27;msg&#x27; : util.format.apply(this, params) };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		// Return defer
+		return when.all(deferreds);
+	}
+
+	var __constructor = function (args) {
+		// Check if exist at least one option
+		if (args.length == 0 || args[0] == undefined)
+			throw errors.<span class="apidocCodeKeywordSpan">renderError</span>(&#x27;empty_input_filepath&#x27;);
+		// Check if first argument is a string
+		if (typeof args[0] != &#x27;string&#x27;)
+			throw errors.renderError(&#x27;input_filepath_must_be_string&#x27;);
+		// Get the input filepath
+		var inputFilepath = args[0];
+		// Check if file exist
+		if (!fs.existsSync(inputFilepath))
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ffmpeg.utils" id="apidoc.module.ffmpeg.utils">module ffmpeg.utils</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.utils.durationToSeconds" id="apidoc.element.ffmpeg.utils.durationToSeconds">
+        function <span class="apidocSignatureSpan">ffmpeg.utils.</span>durationToSeconds
+        <span class="apidocSignatureSpan">(duration)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">durationToSeconds = function (duration) {
+	var parts = duration.substr(0,8).split(&#x27;:&#x27;);
+	return parseInt(parts[0], 10) * 3600 + parseInt(parts[1], 10) * 60 + parseInt(parts[2], 10);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+			  , artist			: artist[1] || &#x27;&#x27;
+			  , album			: album[1] || &#x27;&#x27;
+			  , track			: track[1] || &#x27;&#x27;
+			  , date			: date[1] || &#x27;&#x27;
+			  , synched			: is_synched
+			  , duration		: {
+					raw		: duration[1] || &#x27;&#x27;
+				  , seconds	: duration[1] ? utils.<span class="apidocCodeKeywordSpan">durationToSeconds</span>(duration[1]) : 0
+				}
+			  , video			: {
+					container			: container[1] || &#x27;&#x27;
+				  , bitrate				: (video_bitrate.length &#x3e; 1) ? parseInt(video_bitrate[1], 10) : 0
+				  , stream				: video_stream.length &#x3e; 1 ? parseFloat(video_stream[1]) : 0.0
+				  , codec				: video_codec[1] || &#x27;&#x27;
+				  , resolution			: {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.utils.exec" id="apidoc.element.ffmpeg.utils.exec">
+        function <span class="apidocSignatureSpan">ffmpeg.utils.</span>exec
+        <span class="apidocSignatureSpan">(commands, settings, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">exec = function (commands, settings, callback) {
+	// Create final command line
+	var finalCommand = commands.join(&#x22; &#x22;);
+	// Create the timeoutId for stop the timeout at the end the process
+	var timeoutID = null;
+	// Exec the command
+	var process = exec(finalCommand, settings, function (error, stdout, stderr) {
+		// Clear timeout if &#x27;timeoutID&#x27; are setted
+		if (timeoutID !== null) clearTimeout(timeoutID);
+		// Call the callback function
+		callback(error, stdout, stderr);
+	});
+	// Verify if the timeout are setting
+	if (settings.timeout &#x3e; 0) {
+		// Set the timeout
+		timeoutID = setTimeout(function () {
+			process.kill();
+		}, 100);		
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	 */
+	var _ffmpegInfoConfiguration = function (settings) {
+		// New &#x27;promise&#x27; instance
+		var deferred = when.defer();
+		// Instance the new arrays for the format
+		var format = { modules : new Array(), encode : new Array(), decode : new Array() };
+		// Make the call to retrieve information about the ffmpeg
+		utils.<span class="apidocCodeKeywordSpan">exec</span>([&#x27;ffmpeg&#x27;,&#x27;-formats&#x27;,&#x27;2&#x3e;&#x26;1&#x27;], settings
+, function (error, stdout, stderr) {
+			// Get the list of modules
+			var configuration = /configuration:(.*)/.exec(stdout);
+			// Check if exists the configuration
+			if (configuration) {
+				// Get the list of modules
+				var modules = configuration[1].match(/--enable-([a-zA-Z0-9\-]+)/g);
+				// Scan all modules
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.utils.gcd" id="apidoc.element.ffmpeg.utils.gcd">
+        function <span class="apidocSignatureSpan">ffmpeg.utils.</span>gcd
+        <span class="apidocSignatureSpan">(a, b)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gcd = function (a, b) {
+	if (b === 0) return a;
+	return module.exports.gcd(b, a % b);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+				ret.video.aspect.x		= parseInt(aspectValue[0], 10);
+				ret.video.aspect.y		= parseInt(aspectValue[1], 10);
+				ret.video.aspect.string = aspect[1];
+				ret.video.aspect.value	= parseFloat((ret.video.aspect.x / ret.video.aspect.y));
+			} else {
+				// If exists horizontal resolution then calculate aspect ratio
+				if(ret.video.resolution.w &#x3e; 0) {
+					var gcdValue = utils.<span class="apidocCodeKeywordSpan">gcd</span>(ret.video.resolution.w, ret.video.resolution.h);
+					// Calculate aspect ratio
+					ret.video.aspect.x		= ret.video.resolution.w / gcdValue;
+					ret.video.aspect.y		= ret.video.resolution.h / gcdValue;
+					ret.video.aspect.string = ret.video.aspect.x + &#x27;:&#x27; + ret.video.aspect.y;
+					ret.video.aspect.value	= parseFloat((ret.video.aspect.x / ret.video.aspect.y));
+				}
+			}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.utils.in_array" id="apidoc.element.ffmpeg.utils.in_array">
+        function <span class="apidocSignatureSpan">ffmpeg.utils.</span>in_array
+        <span class="apidocSignatureSpan">(value, array)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">in_array = function (value, array) {
+	// Scan all element
+	for (var i in array)
+		// Check if value exists
+		if (array[i] == value)
+			// Return the position of value
+			return i;
+	// The value not exists
+	return false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	/*****************************************/
+	
+	/**
+	 * Add a command to be bundled into the ffmpeg command call
+	 */
+	this.addCommand = function (command, argument) {
+		// Check if exists the current command
+		if (utils.<span class="apidocCodeKeywordSpan">in_array</span>(command, commands) === false) {
+			// Add the new command
+			commands.push(command);
+			// Add the argument to new command
+			if (argument != undefined)
+				commands.push(argument);
+		} else
+			throw errors.renderError(&#x27;command_already_exists&#x27;, command);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.utils.isEmptyObj" id="apidoc.element.ffmpeg.utils.isEmptyObj">
+        function <span class="apidocSignatureSpan">ffmpeg.utils.</span>isEmptyObj
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isEmptyObj = function (obj) {
+	// Scan all properties
+    for(var prop in obj)
+		// Check if obj has a property
+        if(obj.hasOwnProperty(prop))
+			// The object is not empty
+            return false;
+	// The object is empty
+    return true;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+}
+
+/**
+ * Merge obj1 into obj
+ */
+module.exports.mergeObject = function (obj, obj1) {
+	// Check if there are options set
+	if (!module.exports.<span class="apidocCodeKeywordSpan">isEmptyObj</span>(obj1)) {
+		// Scan all settings
+		for (var key in obj1) {
+			// Check if the option is valid
+			if (!obj.hasOwnProperty(key))
+				throw errors.renderError(&#x27;invalid_option_name&#x27;, key);
+			// Set new option value
+			obj[key] = obj1[key];
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.utils.mergeObject" id="apidoc.element.ffmpeg.utils.mergeObject">
+        function <span class="apidocSignatureSpan">ffmpeg.utils.</span>mergeObject
+        <span class="apidocSignatureSpan">(obj, obj1)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">mergeObject = function (obj, obj1) {
+	// Check if there are options set
+	if (!module.exports.isEmptyObj(obj1)) {
+		// Scan all settings
+		for (var key in obj1) {
+			// Check if the option is valid
+			if (!obj.hasOwnProperty(key))
+				throw errors.renderError(&#x27;invalid_option_name&#x27;, key);
+			// Set new option value
+			obj[key] = obj1[key];
+		}
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		var callback = null;
+		
+		// Scan all arguments
+		for (var i = 1; i &#x3c; args.length; i++) {
+			// Check the type of variable
+			switch (typeof args[i]) {
+				case &#x27;object&#x27; :
+					utils.<span class="apidocCodeKeywordSpan">mergeObject</span>(settings, args[i]);
+					break;
+				case &#x27;function&#x27; :
+					callback = args[i];
+					break;
+			}
+		}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ffmpeg.utils.mkdir" id="apidoc.element.ffmpeg.utils.mkdir">
+        function <span class="apidocSignatureSpan">ffmpeg.utils.</span>mkdir
+        <span class="apidocSignatureSpan">(dirpath, mode, callback, position)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">mkdir = function (dirpath, mode, callback, position) {
+	// Split all directories
+    var parts = path.normalize(dirpath).split(&#x27;/&#x27;);
+	// If the first part is empty then remove this part
+	if (parts[0] == &#x22;&#x22;)
+		parts = parts.slice(1);
+	
+	// Set the initial configuration
+    mode = mode || 0777;
+    position = position || 0;
+	
+	// Check se current position is greater than the list of folders
+	if (position &#x3e; parts.length) {
+		// If isset the callback then it will be invoked
+		if (callback)
+			callback();
+		// Exit and return a positive value
+		return true;
+	}
+
+	// Build the directory path
+	var directory = (dirpath.charAt(0) == &#x27;/&#x27; ? &#x27;/&#x27; : &#x27;&#x27;) + parts.slice(0, position + 1).join(&#x27;/&#x27;);
+
+	// Check if directory exists
+	if (fs.existsSync(directory)) {
+		module.exports.mkdir(dirpath, mode, callback, position + 1);
+	} else {
+		if (fs.mkdirSync(directory, mode)) {
+			// If isset the callback then it will be invoked
+			if (callback)
+				callback(errors.renderError(&#x27;mkdir&#x27;, directory));
+			// Send the new exception
+			throw errors.renderError(&#x27;mkdir&#x27;, directory);
+		} else {
+			module.exports.mkdir(dirpath, mode, callback, position + 1);
+		}
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	}
+
+	// Build the directory path
+	var directory = (dirpath.charAt(0) == &#x27;/&#x27; ? &#x27;/&#x27; : &#x27;&#x27;) + parts.slice(0, position + 1).join(&#x27;/&#
+x27;);
+
+	// Check if directory exists
+	if (fs.existsSync(directory)) {
+		module.exports.<span class="apidocCodeKeywordSpan">mkdir</span>(dirpath, mode, callback, position + 1);
+	} else {
+		if (fs.mkdirSync(directory, mode)) {
+			// If isset the callback then it will be invoked
+			if (callback)
+				callback(errors.renderError(&#x27;mkdir&#x27;, directory));
+			// Send the new exception
+			throw errors.renderError(&#x27;mkdir&#x27;, directory);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>

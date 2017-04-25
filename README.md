@@ -1,6 +1,6 @@
 # npmdoc-ffmpeg
 
-#### api documentation for  [ffmpeg (v0.0.4)](https://github.com/damianociarla/node-ffmpeg#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-ffmpeg.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-ffmpeg) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-ffmpeg.svg)](https://travis-ci.org/npmdoc/node-npmdoc-ffmpeg)
+#### basic api documentation for  [ffmpeg (v0.0.4)](https://github.com/damianociarla/node-ffmpeg#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-ffmpeg.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-ffmpeg) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-ffmpeg.svg)](https://travis-ci.org/npmdoc/node-npmdoc-ffmpeg)
 
 #### Utility for managing video streams using ffmpeg
 
